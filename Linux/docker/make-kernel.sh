@@ -58,7 +58,7 @@ useradd -u $MUID -g s2e s2e
 exec sudo -u s2e /bin/bash - << EOF
 set -x
 
-export C_INCLUDE_PATH=${1}:${C_INCLUDE_PATH}
+export C_INCLUDE_PATH=${1}:/usr/include/:${C_INCLUDE_PATH}
 
 if [ ! -e .config ]; then
     echo "No .config - generating the default config"

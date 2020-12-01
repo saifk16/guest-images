@@ -32,7 +32,7 @@ RUN                                                                             
     sudo apt-file texinfo flex bison patch python unzip git bc                  \
     bzip2 wget less nano g++ gcc file libc6-dev make                            \
     fakeroot build-essential devscripts libncurses5-dev                         \
-    libdw-dev elfutils gettext && \
+    libdw-dev elfutils gettext kmod cpio libssl-dev && \
     apt-get clean && \
     apt-file update
 
