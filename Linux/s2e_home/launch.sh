@@ -63,6 +63,9 @@ install_kernel() {
     MENU_ENTRY="$(grep menuentry /boot/grub/grub.cfg  | grep s2e | cut -d "'" -f 2 | head -n 1)"
     echo "Default menu entry: $MENU_ENTRY"
     echo "GRUB_DEFAULT=\"1>$MENU_ENTRY\"" | sudo tee -a /etc/default/grub
+    echo "GRUB_CMDLINE_LINUX=\"console=ttyS1,115200n8 ignore_loglevel\"" | sudo tee -a /etc/default/grub
+    echo "GRUB_TERMINAL=console" | sudo tee -a /etc/default/grub
+    echo "GRUB_SERIAL_COMMAND=\"serial --speed=115200 --unit=1 --word=8 --parity=no --stop=1\"" | sudo tee -a /etc/default/grub
     sudo update-grub
 }
 

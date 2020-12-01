@@ -130,6 +130,7 @@ define TAKE_SNAPSHOT
 	LD_PRELOAD=$(call GETLIBS2E,$1) $(call GETQEMU,$1) -enable-kvm \
 	    $(call QEMU_HD_S2E,0,$$<) \
 	    -serial file:$(OUTDIR)/$2$1/serial_ready.txt -enable-serial-commands \
+	    -serial file:$(OUTDIR)/$2$1/serial_klog.txt \
 	    $(call QEMU_NIC,$(call NIC,$2$1)) $(call QEMU_CPU,$(call CPU,$2$1)) \
 	    -m $(call SNAPSHOT_SIZE,$2$1) \
 	    $(GRAPHICS)
