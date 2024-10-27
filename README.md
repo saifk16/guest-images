@@ -17,7 +17,7 @@ copies images for intermediate build steps and copy-on-write will save you a lot
 ## Installing dependencies
 
 ```
-sudo apt-get install libguestfs-tools genisoimage python-pip python-magic xz-utils docker.io p7zip-full pxz libhivex-bin fuse jigdo-file
+sudo apt-get install libguestfs-tools genisoimage python-pip python-magic xz-utils docker.io p7zip-full pxz libhivex-bin fuse jigdo-file cloud-image-utils
 sudo apt-get build-dep fakeroot linux-image$(uname -r)
 sudo pip install jinja2
 
@@ -70,9 +70,6 @@ The build should take around 30 minutes. The images will be placed in the ```out
 ./debian-8.7.1-x86_64/image.raw.s2e
 ./debian-8.7.1-x86_64/image.raw.s2e.ready
 
-./cgc_debian-8.7.1-i386/image.json
-./cgc_debian-8.7.1-i386/image.raw.s2e
-./cgc_debian-8.7.1-i386/image.raw.s2e.ready
 ```
 
 Each build is composed of a json file that describes how to run the image, the image itself, as well as a "ready"
