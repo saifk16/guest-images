@@ -1,6 +1,4 @@
-#!/bin/bash
-
-# Copyright (c) 2017, Cyberhaven
+# Copyright (c) 2021, Vitaly Chipounov
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -20,31 +18,26 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# Runs command inside docker image
-# Usage: ./run-docker.sh /path/to/guest-images/src /path/to/s2e-linux-kernel docker-image working_dir [COMMAND]
-# To build a 32-bit linux package:
-#   ./run-docker.sh /home/user/env/source/guest-images /home/user/env/source/s2e-linux-kernel linux-build-32 ../linux-6.8.2 ./make-kernel.sh $(pwd)/../include
+###############################################################################
 
-SRC_DIR=$1
-shift
+$(WINDOWS_APPS_DIR)/win7_updates:
+	mkdir -p $@
 
-S2E_LINUX_KERNEL=$1
-shift
+$(WINDOWS_APPS_DIR)/win7_updates/x86.tar.gz: | $(WINDOWS_APPS_DIR)/win7_updates
+	$(WGET) $@ https://github.com/S2E/guest-images/releases/download/v2.0.0/win7_updates_x86.tar.gz
 
-DOCKER_IMAGE=$1
-shift
+$(WINDOWS_APPS_DIR)/win7_updates/x86/stamp: $(WINDOWS_APPS_DIR)/win7_updates/x86.tar.gz
+	echo Extracting $<
+	tar -xzvf $< -C $(WINDOWS_APPS_DIR)/win7_updates
+	touch $@
 
-WORKING_DIR="$(cd $1 && echo $(pwd))"
-shift
+$(WINDOWS_APPS_DIR)/win7_updates/x64.tar.gz: | $(WINDOWS_APPS_DIR)/win7_updates
+	$(WGET) $@ https://github.com/S2E/guest-images/releases/download/v2.0.0/win7_updates_x64.tar.gz
 
-COMMAND="$(readlink -f $1)"
-shift
+$(WINDOWS_APPS_DIR)/win7_updates/x64/stamp: $(WINDOWS_APPS_DIR)/win7_updates/x64.tar.gz
+	echo Extracting $<
+	tar -xzvf $< -C $(WINDOWS_APPS_DIR)/win7_updates
+	touch $@
 
-echo "Working dir: $WORKING_DIR"
-docker run --rm -i \
-  -v "$(pwd):$(pwd)" \
-  -v "$WORKING_DIR:$WORKING_DIR" -v "$SRC_DIR:$SRC_DIR" \
-  -v "$S2E_LINUX_KERNEL:$S2E_LINUX_KERNEL" \
-  -w "$WORKING_DIR" \
-  $DOCKER_IMAGE:latest \
-  $COMMAND $*
+include $(SRC)/Makefile.windows.updates32
+include $(SRC)/Makefile.windows.updates64
