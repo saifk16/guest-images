@@ -26,6 +26,7 @@ ifeq ("$(wildcard $(S2E_LINUX_KERNELS_ROOT)/linux-$(LINUX_VERSION)/config-i386)"
 $(error $(S2E_LINUX_KERNELS_ROOT)/linux-$(LINUX_VERSION)/config-i386 does not exist. Make sure S2E_LINUX_KERNELS_ROOT is set properly)
 endif
 
+export SUPERMIN_KERNEL=/export/scratch/yanxx297/Project/linux-image-5.15/boot/vmlinuz-5.15.0-107-generic
 
 ### Provisioning the initial image ###
 

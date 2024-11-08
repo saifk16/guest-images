@@ -54,7 +54,7 @@ ifneq (,$(findstring -enable-kvm,$(QEMU_KVM)))
   endif
 
   ifeq (,$(findstring libvirtd,$(shell groups)))
-    ifeq (,$(findstring kvm,$(shell groups)))
+    ifeq (,$(findstring KVM,$(shell groups)))
       $(error You must be member of the libvirtd or kvm groups to build images)
     endif
   endif
